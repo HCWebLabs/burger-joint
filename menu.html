@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+    Scotty's Hamburgers - Menu Page
+    Designed & Developed by HC Web Labs
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Scotty's Hamburgers full menu - Burgers, chicken, hot dogs, sides and more. Order online for pickup.">
+    
+    <title>Menu | Scotty's Hamburgers</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Archivo:wght@400;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+    
+    <style>
+        /* ==============================================
+           CSS RESET
+           ============================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        button {
+            font: inherit;
+            cursor: pointer;
+        }
+        
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        /* ==============================================
+           CSS CUSTOM PROPERTIES & DESIGN TOKENS
+           ============================================== */
+        :root {
+            /* Colors - OKLCH for perceptual uniformity */
+            --color-brand-primary: oklch(55% 0.22 25); /* Red */
+            --color-brand-dark: oklch(30% 0.15 25);
+            --color-neutral-100: oklch(98% 0 0);
+            --color-neutral-200: oklch(92% 0 0);
+            --color-neutral-300: oklch(85% 0 0);
+            --color-neutral-800: oklch(30% 0 0);
+            --color-neutral-900: oklch(20% 0 0);
+            --color-text-primary: oklch(20% 0 0);
+            --color-text-secondary: oklch(40% 0 0);
+            
+            /* Spacing scale */
+            --space-xs: clamp(0.5rem, 1vw, 0.75rem);
+            --space-sm: clamp(0.75rem, 1.5vw, 1rem);
+            --space-md: clamp(1rem, 2vw, 1.5rem);
+            --space-lg: clamp(1.5rem, 3vw, 2.5rem);
+            --space-xl: clamp(2rem, 4vw, 4rem);
+            --space-2xl: clamp(3rem, 6vw, 6rem);
+            
+            /* Typography */
+            --font-family-base: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            --font-family-heading: 'Bebas Neue', 'Impact', 'Arial Black', sans-serif;
+            --font-family-subheading: 'Oswald', 'Arial Narrow', sans-serif;
+            --font-size-sm: clamp(0.875rem, 0.8rem + 0.2vw, 1rem);
+            --font-size-base: clamp(1rem, 0.9rem + 0.3vw, 1.125rem);
+            --font-size-lg: clamp(1.125rem, 1rem + 0.5vw, 1.5rem);
+            --font-size-xl: clamp(1.5rem, 1.2rem + 1vw, 2.5rem);
+            --font-size-2xl: clamp(2rem, 1.5rem + 2vw, 4rem);
+            
+            /* Layout */
+            --container-max: 1200px;
+            --border-radius-sm: 0.375rem;
+            --border-radius-md: 0.5rem;
+            --border-radius-lg: 1rem;
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-neutral-100: oklch(15% 0 0);
+                --color-neutral-200: oklch(20% 0 0);
+                --color-neutral-300: oklch(30% 0 0);
+                --color-text-primary: oklch(95% 0 0);
+                --color-text-secondary: oklch(75% 0 0);
+            }
+        }
+        
+        /* ==============================================
+           BASE STYLES
+           ============================================== */
+        body {
+            font-family: var(--font-family-base);
+            font-size: var(--font-size-base);
+            line-height: 1.4;
+            color: var(--color-text-primary);
+            background-color: var(--color-neutral-100);
+        }
+        
+        /* ==============================================
+           TYPOGRAPHY
+           ============================================== */
+        h1, h2, h3 {
+            font-family: var(--font-family-heading);
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+        
+        h1 {
+            font-size: var(--font-size-2xl);
+        }
+        
+        h2 {
+            font-size: var(--font-size-xl);
+        }
+        
+        h3 {
+            font-size: var(--font-size-lg);
+        }
+        
+        /* ==============================================
+           LAYOUT
+           ============================================== */
+        .container {
+            width: 100%;
+            max-width: var(--container-max);
+            margin-inline: auto;
+            padding-inline: var(--space-md);
+        }
+        
+        /* ==============================================
+           HEADER
+           ============================================== */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: var(--color-neutral-100);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding-block: var(--space-sm);
+        }
+        
+        .site-header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-family: var(--font-family-heading);
+            font-size: var(--font-size-lg);
+            text-transform: uppercase;
+            color: var(--color-brand-primary);
+            letter-spacing: 0.02em;
+        }
+        
+        .logo i {
+            font-size: 1.25em;
+        }
+        
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--color-text-secondary);
+            font-weight: 600;
+            transition: color var(--transition-fast);
+        }
+        
+        .back-link:hover {
+            color: var(--color-brand-primary);
+        }
+        
+        /* ==============================================
+           PAGE HEADER
+           ============================================== */
+        .page-header {
+            background: linear-gradient(135deg, var(--color-brand-primary) 0%, var(--color-brand-dark) 100%);
+            color: var(--color-neutral-100);
+            padding-block: var(--space-xl);
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            margin-bottom: var(--space-xs);
+        }
+        
+        .page-header p {
+            opacity: 0.9;
+        }
+        
+        /* ==============================================
+           INGREDIENT SOURCING BANNER
+           ============================================== */
+        .sourcing-banner {
+            background-color: var(--color-neutral-800);
+            color: var(--color-neutral-100);
+            padding-block: var(--space-sm);
+            text-align: center;
+        }
+        
+        .sourcing-banner .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-sm) var(--space-lg);
+        }
+        
+        .sourcing-item {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+        }
+        
+        .sourcing-item i {
+            color: var(--color-brand-primary);
+        }
+        
+        /* ==============================================
+           CATEGORY NAV (Sticky)
+           ============================================== */
+        .category-nav {
+            position: sticky;
+            top: 60px;
+            z-index: 50;
+            background-color: var(--color-neutral-100);
+            border-bottom: 1px solid var(--color-neutral-200);
+            padding-block: var(--space-md);
+            margin-top: var(--space-sm);
+            overflow-x: auto;
+        }
+        
+        .category-nav ul {
+            display: flex;
+            gap: var(--space-xs);
+            list-style: none;
+            justify-content: center;
+            min-width: max-content;
+        }
+        
+        .category-nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-xs) var(--space-sm);
+            background-color: var(--color-neutral-200);
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            font-size: var(--font-size-sm);
+            white-space: nowrap;
+            transition: background-color var(--transition-fast), color var(--transition-fast);
+        }
+        
+        .category-nav a:hover,
+        .category-nav a.active {
+            background-color: var(--color-brand-primary);
+            color: var(--color-neutral-100);
+        }
+        
+        .category-nav .nav-actions {
+            display: flex;
+            gap: var(--space-xs);
+            margin-left: auto;
+        }
+        
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-xs) var(--space-sm);
+            background-color: var(--color-neutral-800);
+            color: var(--color-neutral-100);
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            font-size: var(--font-size-sm);
+            white-space: nowrap;
+            transition: background-color var(--transition-fast);
+        }
+        
+        .btn-download:hover {
+            background-color: var(--color-brand-primary);
+        }
+        
+        /* ==============================================
+           MENU SECTIONS
+           ============================================== */
+        .menu-page {
+            padding-block: var(--space-lg);
+        }
+        
+        .menu-category {
+            margin-bottom: var(--space-xl);
+            scroll-margin-top: 140px;
+        }
+        
+        .menu-category h2 {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-xs);
+            border-bottom: 3px solid var(--color-brand-primary);
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-xs);
+            border-bottom: 3px solid var(--color-brand-primary);
+        }
+        
+        .category-header h2 {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .menu-category h2 i {
+            color: var(--color-brand-primary);
+        }
+        
+        /* Menu Items Grid */
+        .menu-items {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-md);
+        }
+        
+        /* Menu Item Card */
+        .menu-item {
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-sm);
+            background-color: var(--color-neutral-200);
+            border-radius: var(--border-radius-md);
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .menu-item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--border-radius-sm);
+            object-fit: cover;
+        }
+        
+        .menu-item-info {
+            flex: 1;
+        }
+        
+        .menu-item-info h3 {
+            font-family: var(--font-family-subheading);
+            font-size: var(--font-size-base);
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+        
+        .menu-item-info p {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-sm);
+        }
+        
+        /* Allergen & Nutrition Icons on Menu Items */
+        .menu-item-icons {
+            display: flex;
+            gap: 0.25rem;
+            margin-top: var(--space-xs);
+        }
+        
+        .menu-item-icons button,
+        .menu-item-icons span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            border: none;
+            cursor: pointer;
+            transition: transform var(--transition-fast);
+        }
+        
+        .menu-item-icons button:hover,
+        .menu-item-icons span:hover {
+            transform: scale(1.15);
+        }
+        
+        .icon-nutrition {
+            background-color: var(--color-brand-primary);
+            color: var(--color-neutral-100);
+        }
+        
+        .icon-gluten {
+            background-color: #f59e0b;
+            color: white;
+        }
+        
+        .icon-dairy {
+            background-color: #3b82f6;
+            color: white;
+        }
+        
+        .menu-item-price {
+            font-family: var(--font-family-heading);
+            font-size: var(--font-size-lg);
+            color: var(--color-brand-primary);
+            white-space: nowrap;
+            letter-spacing: 0.02em;
+        }
+        
+        /* ==============================================
+           ORDER CTA (Sticky Bottom)
+           ============================================== */
+        .order-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background-color: var(--color-neutral-100);
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+            padding: var(--space-sm) var(--space-md);
+        }
+        
+        .order-cta .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-md);
+        }
+        
+        .order-cta p {
+            font-weight: 600;
+            display: none;
+            color: var(--color-text-primary);
+        }
+        
+        .order-cta .btn {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+            padding: var(--space-sm) var(--space-lg);
+            background-color: var(--color-brand-primary);
+            color: var(--color-neutral-100);
+            font-family: var(--font-family-heading);
+            font-size: var(--font-size-base);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: var(--border-radius-md);
+            border: none;
+            transition: background-color var(--transition-fast);
+        }
+        
+        .order-cta .btn:hover {
+            background-color: var(--color-brand-dark);
+        }
+        
+        /* Add padding to body so content isn't hidden behind sticky CTA */
+        body {
+            padding-bottom: 70px;
+        }
+        
+        /* ==============================================
+           FOOTER
+           ============================================== */
+        /* ==============================================
+           FOOTER (Same as Homepage)
+           ============================================== */
+        .site-footer {
+            background: linear-gradient(to bottom, var(--color-neutral-800), var(--color-neutral-900));
+            color: var(--color-neutral-100);
+            padding-block: var(--space-xl) var(--space-md);
+            padding-bottom: var(--space-xl);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Decorative top border */
+        .site-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                var(--color-brand-primary) 0%, 
+                var(--color-brand-dark) 50%, 
+                var(--color-brand-primary) 100%);
+        }
+        
+        /* Subtle pattern overlay */
+        .site-footer::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                repeating-linear-gradient(45deg, 
+                    transparent, 
+                    transparent 10px, 
+                    rgba(255, 255, 255, 0.01) 10px, 
+                    rgba(255, 255, 255, 0.01) 20px);
+            pointer-events: none;
+        }
+        
+        .site-footer .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+        }
+        
+        /* Footer headings */
+        .footer-section h4 {
+            font-family: var(--font-family-heading);
+            font-size: var(--font-size-base);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-xs);
+            color: var(--color-neutral-100);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        
+        .footer-section h4 i {
+            color: var(--color-brand-primary);
+        }
+        
+        /* Footer Brand */
+        .footer-brand p {
+            color: var(--color-neutral-300);
+            font-size: var(--font-size-sm);
+            margin-bottom: var(--space-sm);
+            line-height: 1.6;
+        }
+        
+        /* Social Icons */
+        .social-icons {
+            display: flex;
+            gap: var(--space-xs);
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background-color: oklch(25% 0 0);
+            color: var(--color-neutral-300);
+            border-radius: var(--border-radius-sm);
+            font-size: var(--font-size-base);
+            border: 1px solid transparent;
+            transition: 
+                background-color var(--transition-fast), 
+                color var(--transition-fast),
+                transform var(--transition-fast),
+                border-color var(--transition-fast),
+                box-shadow var(--transition-fast);
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--color-brand-primary);
+            color: var(--color-neutral-100);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(214, 40, 40, 0.4);
+        }
+        
+        /* Individual social brand colors on hover */
+        .social-icons a[aria-label="Facebook"]:hover {
+            background: #1877f2;
+            box-shadow: 0 6px 20px rgba(24, 119, 242, 0.4);
+        }
+        
+        .social-icons a[aria-label="Instagram"]:hover {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            box-shadow: 0 6px 20px rgba(225, 48, 108, 0.4);
+        }
+        
+        .social-icons a[aria-label="Twitter"]:hover {
+            background: black;
+            border-color: white;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .social-icons a[aria-label="YouTube"]:hover {
+            background: #ff0000;
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+        }
+        
+        /* Footer Links */
+        .footer-section nav {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+        
+        .footer-section nav a {
+            color: var(--color-neutral-300);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: var(--font-size-sm);
+            transition: color var(--transition-fast);
+            padding-block: 0.125rem;
+        }
+        
+        .footer-section nav a:hover {
+            color: var(--color-brand-primary);
+        }
+        
+        .footer-section nav a i {
+            color: var(--color-brand-primary);
+            width: 1.25em;
+        }
+        
+        /* Footer Bottom - Compact */
+        .footer-bottom {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: var(--space-xl);
+            padding-top: var(--space-md);
+            font-size: var(--font-size-sm);
+            color: var(--color-neutral-300);
+        }
+        
+        .footer-bottom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(90%, 600px);
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                oklch(35% 0 0) 20%, 
+                oklch(35% 0 0) 80%, 
+                transparent);
+        }
+        
+        .footer-bottom p {
+            margin: 0;
+        }
+        
+        .footer-bottom span {
+            opacity: 0.5;
+        }
+        
+        .footer-bottom a {
+            color: var(--color-neutral-300);
+            transition: color var(--transition-fast);
+        }
+        
+        .footer-bottom a:hover {
+            color: var(--color-brand-primary);
+        }
+        
+        /* Mobile footer - single column, centered */
+        @media (max-width: 499px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+                text-align: center;
+            }
+            
+            .footer-section h4 {
+                justify-content: center;
+            }
+            
+            .footer-section nav {
+                align-items: center;
+            }
+            
+            .social-icons {
+                justify-content: center;
+            }
+        }
+        
+        /* ==============================================
+           SCROLL TO TOP BUTTON
+           ============================================== */
+        .scroll-to-top {
+            position: fixed;
+            bottom: calc(70px + var(--space-md) + 8px);
+            right: var(--space-md);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-dark));
+            color: var(--color-neutral-100);
+            border: none;
+            border-radius: 50%;
+            font-size: var(--font-size-lg);
+            box-shadow: 
+                0 4px 15px rgba(214, 40, 40, 0.3),
+                0 8px 30px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: 
+                opacity var(--transition-base),
+                visibility var(--transition-base),
+                transform var(--transition-base),
+                box-shadow var(--transition-fast);
+            z-index: 99;
+        }
+        
+        .scroll-to-top.is-visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 8px 25px rgba(214, 40, 40, 0.4),
+                0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* ==============================================
+           MENU INFO SECTION (Sourcing, Allergen, PDF)
+           ============================================== */
+        .menu-info {
+            background-color: var(--color-neutral-200);
+            padding-block: var(--space-xl);
+            margin-top: var(--space-xl);
+        }
+        
+        .menu-info h2 {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+            font-family: var(--font-family-heading);
+            font-size: var(--font-size-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+        }
+        
+        .menu-info h2 i {
+            color: var(--color-brand-primary);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-lg);
+            max-width: 1200px;
+            margin-inline: auto;
+        }
+        
+        .info-card {
+            background-color: var(--color-neutral-100);
+            padding: var(--space-xl);
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform var(--transition-base), box-shadow var(--transition-base);
+        }
+        
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-card-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-dark));
+            color: var(--color-neutral-100);
+            border-radius: 50%;
+            margin-inline: auto;
+            margin-bottom: var(--space-sm);
+            font-size: var(--font-size-lg);
+        }
+        
+        .info-card h3 {
+            font-family: var(--font-family-subheading);
+            font-size: var(--font-size-base);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            margin-bottom: var(--space-xs);
+            color: var(--color-text-primary);
+        }
+        
+        .info-card p {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .info-card .btn-small {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-xs) var(--space-sm);
+            background-color: var(--color-brand-primary);
+            color: var(--color-neutral-100);
+            font-family: var(--font-family-subheading);
+            font-size: var(--font-size-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            border-radius: var(--border-radius-sm);
+            transition: background-color var(--transition-fast);
+        }
+        
+        .info-card .btn-small:hover {
+            background-color: var(--color-brand-dark);
+        }
+        
+        /* Allergen Icons */
+        .allergen-icons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .allergen-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            padding: var(--space-xs);
+            background-color: var(--color-neutral-200);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.7rem;
+            color: var(--color-text-secondary);
+        }
+        
+        .allergen-icon i {
+            font-size: 1.25rem;
+            color: var(--color-brand-primary);
+        }
+        
+        /* ==============================================
+           NUTRITION MODAL
+           ============================================== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-md);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-base), visibility var(--transition-base);
+        }
+        
+        .modal-overlay.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background-color: var(--color-neutral-100);
+            border-radius: var(--border-radius-lg);
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(20px);
+            transition: transform var(--transition-base);
+        }
+        
+        .modal-overlay.is-open .modal {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--color-neutral-200);
+        }
+        
+        .modal-header h3 {
+            font-family: var(--font-family-subheading);
+            font-size: var(--font-size-lg);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        
+        .modal-header h3 i {
+            color: var(--color-brand-primary);
+        }
+        
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-lg);
+            border-radius: var(--border-radius-sm);
+            transition: background-color var(--transition-fast), color var(--transition-fast);
+        }
+        
+        .modal-close:hover {
+            background-color: var(--color-neutral-200);
+            color: var(--color-brand-primary);
+        }
+        
+        .modal-body {
+            padding: var(--space-md);
+        }
+        
+        .nutrition-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .nutrition-table tr {
+            border-bottom: 1px solid var(--color-neutral-200);
+        }
+        
+        .nutrition-table tr:last-child {
+            border-bottom: none;
+        }
+        
+        .nutrition-table td {
+            padding: var(--space-sm);
+        }
+        
+        .nutrition-table td:first-child {
+            color: var(--color-text-secondary);
+        }
+        
+        .nutrition-table td:last-child {
+            text-align: right;
+            font-weight: 600;
+        }
+        
+        .modal-footer {
+            padding: var(--space-md);
+            border-top: 1px solid var(--color-neutral-200);
+            background-color: var(--color-neutral-200);
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            text-align: center;
+        }
+        
+        /* ==============================================
+           MEDIA QUERIES
+           ============================================== */
+        @media (min-width: 768px) {
+            .menu-items {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-md);
+            }
+            
+            .order-cta p {
+                display: block;
+            }
+            
+            .order-cta .btn {
+                flex: none;
+            }
+            
+            .category-nav ul {
+                justify-content: center;
+            }
+            
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-xl);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .page-header {
+                padding-block: var(--space-2xl);
+            }
+            
+            .info-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: var(--space-xl);
+            }
+            
+            /* Footer - 4 columns on laptop+ */
+            .footer-content {
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+                gap: var(--space-xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="scottys-v2.html" class="logo">
+                <i class="fa-solid fa-burger"></i>
+                Scotty's
+            </a>
+            <a href="scottys-v2.html" class="back-link">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Home
+            </a>
+        </div>
+    </header>
+    
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1><i class="fa-solid fa-utensils"></i> Our Menu</h1>
+            <p>Fresh burgers, chicken, hot dogs & more</p>
+        </div>
+    </section>
+    
+    <!-- Ingredient Sourcing Banner -->
+    <div class="sourcing-banner">
+        <div class="container">
+            <span class="sourcing-item"><i class="fa-solid fa-cow"></i> 100% Angus Beef</span>
+            <span class="sourcing-item"><i class="fa-solid fa-carrot"></i> Fresh-Cut Fries Daily</span>
+            <span class="sourcing-item"><i class="fa-solid fa-leaf"></i> Local Produce</span>
+            <span class="sourcing-item"><i class="fa-solid fa-hand-holding-heart"></i> Made with Love</span>
+        </div>
+    </div>
+    
+    <!-- Category Navigation -->
+    <nav class="category-nav">
+        <div class="container">
+            <ul>
+                <li><a href="#burgers"><i class="fa-solid fa-burger"></i> Burgers</a></li>
+                <li><a href="#chicken"><i class="fa-solid fa-drumstick-bite"></i> Chicken</a></li>
+                <li><a href="#hotdogs"><i class="fa-solid fa-hotdog"></i> Hot Dogs</a></li>
+                <li><a href="#sides"><i class="fa-solid fa-french-fries"></i> Sides</a></li>
+                <li><a href="#drinks"><i class="fa-solid fa-cup-straw-swoosh"></i> Drinks</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Main Menu Content -->
+    <main class="menu-page">
+        <div class="container">
+            
+            <!-- BURGERS -->
+            <section class="menu-category" id="burgers">
+                <div class="category-header">
+                    <h2><i class="fa-solid fa-burger"></i> Burgers</h2>
+                    <a href="#" class="btn-download" download><i class="fa-solid fa-file-pdf"></i> PDF Menu</a>
+                </div>
+                <div class="menu-items">
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=150&q=80" alt="Cheese Burger" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Cheese Burger Meal</h3>
+                            <p>Meal comes with 32oz drink and fresh cut fries</p>
+                            <div class="menu-item-icons">
+                                <button class="icon-nutrition" onclick="openNutritionModal()" title="View Nutrition Info"><i class="fa-solid fa-calculator"></i></button>
+                                <span class="icon-gluten" title="Contains Gluten"><i class="fa-solid fa-wheat-awn"></i></span>
+                                <span class="icon-dairy" title="Contains Dairy"><i class="fa-solid fa-cheese"></i></span>
+                            </div>
+                        </div>
+                        <span class="menu-item-price">$12.20</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?auto=format&fit=crop&w=150&q=80" alt="Cheese Burger" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Cheese Burger Only</h3>
+                            <p>Cheese burger</p>
+                        </div>
+                        <span class="menu-item-price">$7.99</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=150&q=80" alt="Hamburger" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Hamburger Meal</h3>
+                            <p>Meal comes with 32oz drink and fresh cut fries</p>
+                        </div>
+                        <span class="menu-item-price">$11.75</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=150&q=80" alt="Hamburger" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Hamburger Only</h3>
+                            <p>Burger</p>
+                        </div>
+                        <span class="menu-item-price">$7.42</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=150&q=80" alt="Smash Burger" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Smash Burger Meal</h3>
+                            <p>Meal comes with 32oz drink and fresh cut fries</p>
+                        </div>
+                        <span class="menu-item-price">$11.75</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1551615593-ef5fe247e8f7?auto=format&fit=crop&w=150&q=80" alt="Smash Burger" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Smash Burger Only</h3>
+                            <p>Smash burger</p>
+                        </div>
+                        <span class="menu-item-price">$7.42</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?auto=format&fit=crop&w=150&q=80" alt="Sliders" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>2 Sliders Meal</h3>
+                            <p>Meal comes with 32oz drink and fresh cut fries</p>
+                        </div>
+                        <span class="menu-item-price">$8.75</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?auto=format&fit=crop&w=150&q=80" alt="Slider" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Single Slider Only</h3>
+                            <p>Single slider</p>
+                        </div>
+                        <span class="menu-item-price">$3.98</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?auto=format&fit=crop&w=150&q=80" alt="Sliders with Cheese" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>2 Sliders with Cheese Meal</h3>
+                            <p>Meal comes with 32oz drink and fresh cut fries</p>
+                        </div>
+                        <span class="menu-item-price">$9.15</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?auto=format&fit=crop&w=150&q=80" alt="Slider with Cheese" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Single Slider with Cheese</h3>
+                            <p>Slider with cheese</p>
+                        </div>
+                        <span class="menu-item-price">$4.38</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?auto=format&fit=crop&w=150&q=80" alt="Double Sliders" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>2 Double Sliders Meal</h3>
+                            <p>Meal comes with 32oz drink and fresh cut fries</p>
+                        </div>
+                        <span class="menu-item-price">$10.66</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?auto=format&fit=crop&w=150&q=80" alt="Double Sliders with Cheese" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>2 Double Sliders Meal W/cheese</h3>
+                            <p>Meal comes with 32oz drink and fresh cut fries</p>
+                        </div>
+                        <span class="menu-item-price">$11.76</span>
+                    </article>
+                    
+                </div>
+            </section>
+            
+            <!-- CHICKEN -->
+            <section class="menu-category" id="chicken">
+                <h2><i class="fa-solid fa-drumstick-bite"></i> Chicken</h2>
+                <div class="menu-items">
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=150&q=80" alt="Chicken Sandwich" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Chicken Sandwich Meal</h3>
+                            <p>Meal comes with 32oz drink and fresh cut fries</p>
+                        </div>
+                        <span class="menu-item-price">$11.29</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=150&q=80" alt="Chicken Sandwich" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Chicken Sandwich Only</h3>
+                            <p>Chicken sandwich</p>
+                        </div>
+                        <span class="menu-item-price">$6.30</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=150&q=80" alt="Chicken Tenders" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Jumbo Chicken Tenders Meal (4 Pcs)</h3>
+                            <p>Meal comes with 32oz drink and fresh cut fries</p>
+                        </div>
+                        <span class="menu-item-price">$11.39</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=150&q=80" alt="Chicken Tenders" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Tenders Only (4 Pcs)</h3>
+                            <p>4 piece chicken tenders</p>
+                        </div>
+                        <span class="menu-item-price">$8.77</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=150&q=80" alt="Chicken Wings" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Jumbo Wings Meal (10 Pcs)</h3>
+                            <p>Meal comes with 32oz drink and fresh cut fries</p>
+                        </div>
+                        <span class="menu-item-price">$16.90</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=150&q=80" alt="Chicken Wings" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Jumbo Wings Meal (5 Pcs)</h3>
+                            <p>Meal comes with 32oz drink and fresh cut fries</p>
+                        </div>
+                        <span class="menu-item-price">$12.60</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=150&q=80" alt="Chicken Wings" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Wings Only (10 Pcs)</h3>
+                            <p>10 piece jumbo wings</p>
+                        </div>
+                        <span class="menu-item-price">$15.40</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=150&q=80" alt="Chicken Wings" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Wings Only (5 Pcs)</h3>
+                            <p>5 piece jumbo wings</p>
+                        </div>
+                        <span class="menu-item-price">$7.90</span>
+                    </article>
+                    
+                </div>
+            </section>
+            
+            <!-- HOT DOGS -->
+            <section class="menu-category" id="hotdogs">
+                <h2><i class="fa-solid fa-hotdog"></i> Hot Dogs</h2>
+                <div class="menu-items">
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1612392062422-ef19b42f74df?auto=format&fit=crop&w=150&q=80" alt="Hot Dogs" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>2 Hot Dogs Meal</h3>
+                            <p>Meal comes with 2 Hot Dogs, 32oz Drink and Fresh Cut Fries</p>
+                        </div>
+                        <span class="menu-item-price">$8.85</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1612392062422-ef19b42f74df?auto=format&fit=crop&w=150&q=80" alt="Hot Dog" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Single Hot Dog Only</h3>
+                            <p>Hot dog</p>
+                        </div>
+                        <span class="menu-item-price">$3.99</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1619740455993-9d701c91fc66?auto=format&fit=crop&w=150&q=80" alt="Chili Dogs" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>2 Chili Dogs Meal</h3>
+                            <p>Meal comes with 2 Hot Dogs, 32oz Drink and Fresh Cut Fries</p>
+                        </div>
+                        <span class="menu-item-price">$10.15</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1619740455993-9d701c91fc66?auto=format&fit=crop&w=150&q=80" alt="Chili Dog" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Single Chili Dog</h3>
+                            <p>Chili dog</p>
+                        </div>
+                        <span class="menu-item-price">$4.45</span>
+                    </article>
+                    
+                </div>
+            </section>
+            
+            <!-- SIDES -->
+            <section class="menu-category" id="sides">
+                <h2><i class="fa-solid fa-french-fries"></i> Sides</h2>
+                <div class="menu-items">
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=150&q=80" alt="Fries" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Fries Only</h3>
+                            <p>Fresh cut daily</p>
+                        </div>
+                        <span class="menu-item-price">$2.99</span>
+                    </article>
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1630384060421-cb20aeb56983?auto=format&fit=crop&w=150&q=80" alt="Chili Cheese Fries" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Chili Cheese Fries</h3>
+                            <p>Fries, chili, cheese</p>
+                        </div>
+                        <span class="menu-item-price">$4.95</span>
+                    </article>
+                    
+                </div>
+            </section>
+            
+            <!-- DRINKS -->
+            <section class="menu-category" id="drinks">
+                <h2><i class="fa-solid fa-cup-straw-swoosh"></i> Drinks</h2>
+                <div class="menu-items">
+                    
+                    <article class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1581636625402-29b2a704ef13?auto=format&fit=crop&w=150&q=80" alt="Fountain Drink" class="menu-item-image" loading="lazy">
+                        <div class="menu-item-info">
+                            <h3>Drinks</h3>
+                            <p>32oz fountain drink</p>
+                        </div>
+                        <span class="menu-item-price">$1.99</span>
+                    </article>
+                    
+                </div>
+            </section>
+            
+        </div>
+    </main>
+    
+    <!-- Nutrition Modal -->
+    <div class="modal-overlay" id="nutritionModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-calculator"></i> Nutrition Information</h3>
+                <button class="modal-close" onclick="closeNutritionModal()" aria-label="Close modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: var(--space-md); color: var(--color-text-secondary);">Average values per serving. Actual values may vary.</p>
+                
+                <h4 style="font-family: var(--font-family-subheading); margin-bottom: var(--space-sm); text-transform: uppercase;">Cheese Burger</h4>
+                <table class="nutrition-table">
+                    <tr><td>Calories</td><td>650 kcal</td></tr>
+                    <tr><td>Total Fat</td><td>35g</td></tr>
+                    <tr><td>Saturated Fat</td><td>14g</td></tr>
+                    <tr><td>Cholesterol</td><td>95mg</td></tr>
+                    <tr><td>Sodium</td><td>1100mg</td></tr>
+                    <tr><td>Total Carbs</td><td>45g</td></tr>
+                    <tr><td>Protein</td><td>32g</td></tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <i class="fa-solid fa-circle-info"></i> 2,000 calories a day is used for general nutrition advice
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            
+            <div class="footer-content">
+                
+                <!-- About Scotty's -->
+                <div class="footer-section footer-brand">
+                    <h4><i class="fa-solid fa-burger"></i> About Scotty's</h4>
+                    <p>Serving the community since 2015 with fresh, handcrafted burgers made with love and quality ingredients. Your local roadside burger stop!</p>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4><i class="fa-solid fa-link"></i> Quick Links</h4>
+                    <nav>
+                        <a href="scottys-v2.html"><i class="fa-solid fa-house"></i> Home</a>
+                        <a href="#burgers"><i class="fa-solid fa-burger"></i> Burgers</a>
+                        <a href="#chicken"><i class="fa-solid fa-drumstick-bite"></i> Chicken</a>
+                        <a href="#hotdogs"><i class="fa-solid fa-hotdog"></i> Hot Dogs</a>
+                    </nav>
+                </div>
+                
+                <!-- Customer Service -->
+                <div class="footer-section">
+                    <h4><i class="fa-solid fa-headset"></i> Customer Service</h4>
+                    <nav>
+                        <a href="#contact"><i class="fa-solid fa-phone"></i> Contact Us</a>
+                        <a href="#faq"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+                        <a href="#nutrition"><i class="fa-solid fa-heart-pulse"></i> Nutrition Info</a>
+                        <a href="#allergen"><i class="fa-solid fa-triangle-exclamation"></i> Allergen Info</a>
+                    </nav>
+                </div>
+                
+                <!-- Connect -->
+                <div class="footer-section">
+                    <h4><i class="fa-solid fa-share-nodes"></i> Connect</h4>
+                    <nav>
+                        <a href="#"><i class="fa-brands fa-facebook"></i> Facebook</a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i> Twitter</a>
+                        <a href="#newsletter"><i class="fa-solid fa-envelope"></i> Newsletter</a>
+                    </nav>
+                </div>
+                
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Scotty's Hamburgers</p>
+                <span>|</span>
+                <a href="#privacy">Privacy Policy</a>
+                <span>|</span>
+                <a href="#terms">Terms of Service</a>
+            </div>
+            
+        </div>
+    </footer>
+    
+    <!-- Sticky Order CTA -->
+    <div class="order-cta">
+        <div class="container">
+            <p><i class="fa-solid fa-clock"></i> Open until 4:00 PM</p>
+            <a href="https://ordering.chownow.com/order/scotty-s" target="_blank" rel="noopener" class="btn">
+                <i class="fa-solid fa-bag-shopping"></i>
+                Order Now on ChowNow
+            </a>
+        </div>
+    </div>
+    
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" aria-label="Scroll to top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+    
+    <script>
+        // Nutrition Modal
+        const nutritionModal = document.getElementById('nutritionModal');
+        
+        function openNutritionModal() {
+            nutritionModal.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeNutritionModal() {
+            nutritionModal.classList.remove('is-open');
+            document.body.style.overflow = '';
+        }
+        
+        // Close on overlay click
+        nutritionModal.addEventListener('click', (e) => {
+            if (e.target === nutritionModal) {
+                closeNutritionModal();
+            }
+        });
+        
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && nutritionModal.classList.contains('is-open')) {
+                closeNutritionModal();
+            }
+        });
+        
+        // Scroll to Top Button
+        const scrollToTopBtn = document.querySelector('.scroll-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('is-visible');
+            } else {
+                scrollToTopBtn.classList.remove('is-visible');
+            }
+        });
+        
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+    
+</body>
+</html>
